@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tentang Kami | KASAMAL - Amanah & Transparan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+      body { font-family: "Inter", sans-serif; }
+      
+      .nav-link-active { 
+        color: #059669; 
+        background-color: #ecfdf5;
+        padding: 8px 16px;
+        border-radius: 12px;
+      }
+      .dev-card {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .dev-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 25px 30px -5px rgba(16, 185, 129, 0.12), 0 15px 15px -5px rgba(16, 185, 129, 0.06);
+      }
+      .hero-overlay {
+        background: linear-gradient(180deg, rgba(5, 150, 105, 0.9) 0%, rgba(5, 150, 105, 0.5) 50%, #ffffff 100%);
+      }
+      #mobile-menu { transition: all 0.3s ease-in-out; }
+    </style>
+  </head>
+  <body class="bg-white text-slate-800 antialiased">
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+          <div class="flex items-center gap-3">
+            <div class="bg-emerald-600 p-2.5 rounded-xl text-white shadow-lg shadow-emerald-200">
+              <i class="fas fa-mosque"></i>
+            </div>
+            <span class="text-xl font-bold tracking-tight text-slate-900">KAS<span class="text-emerald-600">AMAL</span></span>
+          </div>
+          <div class="hidden md:flex space-x-4 h-full items-center font-semibold text-sm text-slate-500">
+            <a href="index.html" class="hover:text-emerald-600 transition-colors px-4 py-2 flex items-center">Dashboard</a>
+            <a href="laporan.html" class="hover:text-emerald-600 transition-colors px-4 py-2 flex items-center">Laporan</a>
+            <a href="tentang.html" class="nav-link-active flex items-center transition-colors">Tentang Kami</a>
+          </div>
+          <div class="md:hidden flex items-center">
+            <button id="mobile-menu-button" class="text-slate-600 hover:text-emerald-600 focus:outline-none">
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200">
+        <div class="px-4 pt-2 pb-6 space-y-2 font-semibold text-sm">
+          <a href="index.html" class="block px-4 py-2 text-slate-500 hover:text-emerald-600">Dashboard</a>
+          <a href="laporan.html" class="block px-4 py-2 text-slate-500 hover:text-emerald-600">Laporan</a>
+          <a href="tentang.html" class="block nav-link-active">Tentang Kami</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="relative w-full min-h-[40vh] md:min-h-[50vh] flex items-center overflow-hidden">
+        <img src="https://lh3.googleusercontent.com/d/1fkp2W_YW9c-8UtMFj17G57aSUuvBwBjK" 
+             alt="Latar Belakang Masjid KASAMAL" 
+             class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 hero-overlay"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 text-center text-white">
+          <div class="inline-block bg-white/20 backdrop-blur-sm text-white px-5 py-2 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6 border border-white/20 shadow-inner">
+            #InovasiTransparansiMasjid
+          </div>
+          <h1 class="text-3xl md:text-6xl font-black mb-6 md:mb-8 tracking-tighter leading-tight drop-shadow-md">Amanah Yang Terjaga.</h1>
+          <p class="text-white/90 text-sm md:text-xl leading-relaxed max-w-4xl mx-auto font-semibold drop-shadow">
+            KASAMAL lahir dari semangat untuk mendigitalisasi kotak amal masjid, memastikan setiap rupiah yang diinfakkan oleh jamaah dapat dipertanggungjawabkan secara transparan dan real-time.
+          </p>
+        </div>
+      </section>
+
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-28">
+        <div class="flex items-center gap-6 mb-12 md:mb-16">
+            <div class="h-px bg-slate-100 flex-grow"></div>
+            <h2 class="text-xl md:text-3xl font-extrabold text-slate-900 whitespace-nowrap tracking-tight text-center">Tim Inovator KASAMAL</h2>
+            <div class="h-px bg-slate-100 flex-grow"></div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10">
+            <div class="col-span-2 lg:col-span-1 dev-card bg-white p-5 md:p-8 rounded-[2rem] md:rounded-[3rem] shadow-xl border-2 border-emerald-500/20 text-center flex flex-col items-center relative lg:scale-105 z-10 mx-auto w-full max-w-[250px] lg:max-w-none">
+              <div class="absolute -top-3 bg-emerald-600 text-white text-[8px] md:text-[10px] font-black px-3 py-1 md:px-4 md:py-1.5 rounded-full shadow-lg uppercase tracking-wider">Ketua Tim</div>
+              <div class="w-16 h-16 md:w-24 md:h-24 rounded-full mb-4 md:mb-6 border-2 border-emerald-100 overflow-hidden">
+                  <img src="https://lh3.googleusercontent.com/d/1dc4JS6fWvm_X4Lsi7fhRAhaNH_yRsom0" alt="Profile" class="w-full h-full object-cover">
+              </div>
+              <h3 class="font-bold text-slate-950 text-xs md:text-lg leading-tight">Dhimas Eko Arifianto</h3>
+              <p class="text-[8px] md:text-[10px] text-slate-500 mt-1">NIM: 240533604773</p>
+              <p class="text-[9px] md:text-[11px] text-slate-400">S1 Pendidikan Teknik Informatika</p>
+              <div class="flex gap-2 md:gap-4 mt-4">
+                  <a href="https://wa.me/082139121343" target="_blank" class="text-slate-400 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp text-sm md:text-lg"></i></a>
+                  <a href="https://www.instagram.com/dhimase.a" target="_blank" class="text-slate-400 hover:text-pink-500 transition-colors"><i class="fab fa-instagram text-sm md:text-lg"></i></a>
+                  <a href="#" class="text-slate-400 hover:text-blue-600 transition-colors"><i class="fab fa-facebook text-sm md:text-lg"></i></a>
+                  <a href="#" class="text-slate-400 hover:text-blue-700 transition-colors"><i class="fab fa-linkedin text-sm md:text-lg"></i></a>
+              </div>
+            </div>
+
+            <div class="dev-card bg-white p-5 md:p-8 rounded-[2rem] md:rounded-[3rem] shadow-lg border border-slate-100 text-center flex flex-col items-center">
+              <div class="w-16 h-16 md:w-24 md:h-24 bg-slate-50 rounded-full mb-4 md:mb-6 flex items-center justify-center">
+                  <i class="fas fa-user text-slate-300 text-2xl md:text-4xl"></i>
+              </div>
+              <h3 class="font-bold text-slate-950 text-xs md:text-lg leading-tight">Aisyah Putri Aremanita</h3>
+              <p class="text-[8px] md:text-[10px] text-slate-500 mt-1">NIM: 240922706405</p>
+              <p class="text-[9px] md:text-[11px] text-slate-400">S1 Pendidikan Teknik Informatika</p>
+              <div class="flex gap-2 md:gap-4 mt-4 text-slate-300">
+                  <i class="fab fa-whatsapp text-sm md:text-lg"></i><i class="fab fa-instagram text-sm md:text-lg"></i><i class="fab fa-facebook text-sm md:text-lg"></i><i class="fab fa-linkedin text-sm md:text-lg"></i>
+              </div>
+            </div>
+
+            <div class="dev-card bg-white p-5 md:p-8 rounded-[2rem] md:rounded-[3rem] shadow-lg border border-slate-100 text-center flex flex-col items-center">
+              <div class="w-16 h-16 md:w-24 md:h-24 bg-slate-50 rounded-full mb-4 md:mb-6 flex items-center justify-center">
+                  <i class="fas fa-user text-slate-300 text-2xl md:text-4xl"></i>
+              </div>
+              <h3 class="font-bold text-slate-950 text-xs md:text-lg leading-tight">Dinda Nurul Azizah</h3>
+              <p class="text-[8px] md:text-[10px] text-slate-500 mt-1">NIM: 240533603354</p>
+              <p class="text-[9px] md:text-[11px] text-slate-400">S1 Pendidikan Teknik Informatika</p>
+              <div class="flex gap-2 md:gap-4 mt-4 text-slate-300">
+                  <i class="fab fa-whatsapp text-sm md:text-lg"></i><i class="fab fa-instagram text-sm md:text-lg"></i><i class="fab fa-facebook text-sm md:text-lg"></i><i class="fab fa-linkedin text-sm md:text-lg"></i>
+              </div>
+            </div>
+
+        </div>
+      </section>
+
+      <footer class="pt-12 pb-10 border-t border-slate-100 text-center bg-white px-4">
+        <p class="text-slate-400 text-xs md:text-sm font-medium">© 2026 KASAMAL Project. Universitas Negeri Malang.</p>
+      </footer>
+    </main>
+
+    <script>
+      const menuBtn = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    </script>
+  </body>
+</html>

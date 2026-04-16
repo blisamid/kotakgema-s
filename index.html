@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | KASAMAL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+      body { font-family: "Inter", sans-serif; }
+      .nav-link-active { 
+        color: #059669; 
+        background-color: #ecfdf5;
+        padding: 8px 16px;
+        border-radius: 12px;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+      }
+      /* Smooth transition untuk mobile menu */
+      #mobile-menu {
+        transition: all 0.3s ease-in-out;
+      }
+    </style>
+  </head>
+  <body class="bg-[#f8fafc] text-slate-800">
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+          <div class="flex items-center gap-3">
+            <div class="bg-emerald-600 p-2.5 rounded-xl text-white shadow-lg shadow-emerald-200">
+              <i class="fas fa-mosque"></i>
+            </div>
+            <span class="text-xl font-bold tracking-tight text-slate-900">
+              KAS<span class="text-emerald-600">AMAL</span>
+            </span>
+          </div>
+
+          <div class="hidden md:flex space-x-4 h-full items-center font-semibold text-sm text-slate-500">
+            <a href="index.html" class="nav-link-active flex items-center transition-colors">Dashboard</a>
+            <a href="laporan.html" class="hover:text-emerald-600 transition-colors px-4 py-2 flex items-center">Laporan</a>
+            <a href="tentang.html" class="hover:text-emerald-600 transition-colors px-4 py-2 flex items-center">Tentang Kami</a>
+          </div>
+
+          <div class="md:hidden flex items-center">
+            <button id="mobile-menu-button" class="text-slate-600 hover:text-emerald-600 focus:outline-none">
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200">
+        <div class="px-4 pt-2 pb-6 space-y-2 font-semibold">
+          <a href="index.html" class="block nav-link-active">Dashboard</a>
+          <a href="laporan.html" class="block px-4 py-2 text-slate-500 hover:text-emerald-600">Laporan</a>
+          <a href="tentang.html" class="block px-4 py-2 text-slate-500 hover:text-emerald-600">Tentang Kami</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-6 md:py-10">
+      <div class="mb-8 md:mb-10 text-center md:text-left">
+        <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Portal Transparansi Infaq</h1>
+        <p class="text-slate-500 mt-2 font-medium text-sm md:text-base">Memantau amanah jamaah secara terbuka dan akuntabel.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-10">
+        <div class="glass-card p-6 rounded-3xl shadow-sm border-t-4 border-t-emerald-500">
+          <p class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">Total Seluruhnya</p>
+          <div id="quick-total" class="text-2xl font-bold text-slate-900">Rp 0</div>
+        </div>
+
+        <div class="glass-card p-6 rounded-3xl shadow-sm border-t-4 border-t-blue-500">
+          <div class="flex justify-between items-start mb-2">
+            <p class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Infaq Hari Ini</p>
+            <span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-bold">OTOMATIS</span>
+          </div>
+          <div id="today-total" class="text-2xl font-bold text-slate-900">Rp 0</div>
+          <p id="today-date" class="text-[10px] text-slate-400 mt-1 font-medium italic"></p>
+        </div>
+
+        <div class="glass-card p-6 rounded-3xl shadow-sm border-t-4 border-t-slate-300">
+          <p class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">Update Terakhir</p>
+          <div id="last-sync" class="text-xl font-bold text-slate-700">-</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-4 items-center justify-between mb-6">
+        <div class="relative w-full md:w-96">
+          <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input type="text" id="searchInput" placeholder="Cari data infaq..." class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-2xl shadow-sm outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all" />
+        </div>
+        
+        <div class="flex items-center gap-3 w-full md:w-auto">
+          <label class="text-sm font-bold text-slate-400 uppercase tracking-widest hidden md:block">Filter:</label>
+          <select id="methodFilter" class="w-full md:w-48 px-4 py-3 bg-white border border-slate-200 rounded-2xl shadow-sm outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer font-medium text-slate-600">
+            <option value="all">Semua Metode</option>
+            <option value="Cash">Tunai (Cash)</option>
+            <option value="QRIS">QRIS</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-[1.5rem] md:rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left min-w-[500px]">
+            <thead>
+              <tr class="bg-slate-50/50 border-b border-slate-100 text-[10px] md:text-[11px] uppercase tracking-[0.1em] font-bold text-slate-400">
+                <th class="px-4 md:px-8 py-5">Waktu & Tanggal</th>
+                <th class="px-4 md:px-8 py-5">Nominal Infaq</th>
+                <th class="px-4 md:px-8 py-5 text-center">Metode Pembayaran</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody" class="divide-y divide-slate-50">
+              <tr>
+                <td colspan="3" class="px-8 py-20 text-center text-slate-400">
+                  <div class="flex flex-col items-center gap-3">
+                    <i class="fas fa-circle-notch animate-spin text-2xl text-emerald-500"></i>
+                    <p class="font-medium italic">Menyelaraskan data...</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Toggle Mobile Menu
+      const btn = document.getElementById('mobile-menu-button');
+      const menu = document.getElementById('mobile-menu');
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+      });
+
+      const sheetID = "1sIHBxofRmYWQzJwiqjLk4i5t-RKeHvgZaOcyR0ESemE";
+      const apiKey = "AIzaSyCqxhqJkTJHyH9P1qRMQed3YV8-BXiCiAw";
+      let allData = [];
+
+      async function loadData() {
+        try {
+          const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/Sheet1!A2:F?key=${apiKey}`);
+          const data = await res.json();
+          if (data.values) {
+            allData = data.values;
+            applyFilter();
+            updateStats(allData);
+          }
+        } catch (e) { console.error("Gagal sinkronisasi data."); }
+      }
+
+      function updateStats(data) {
+        const totalAll = data.reduce((acc, row) => acc + parseInt(row[4] || 0), 0);
+        document.getElementById('quick-total').innerText = "Rp " + totalAll.toLocaleString("id-ID");
+
+        const sekarang = new Date();
+        const tglHariIni = sekarang.toLocaleDateString('id-ID', {
+          day: '2-digit', month: '2-digit', year: 'numeric'
+        }).split('/').join('-');
+
+        const totalHariIni = data.reduce((acc, row) => {
+          if (row[2] === tglHariIni) return acc + parseInt(row[4] || 0);
+          return acc;
+        }, 0);
+
+        document.getElementById('today-total').innerText = "Rp " + totalHariIni.toLocaleString("id-ID");
+        document.getElementById('today-date').innerText = "Per tanggal: " + tglHariIni;
+        document.getElementById('last-sync').innerText = sekarang.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + " WIB";
+      }
+
+      function applyFilter() {
+        const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+        const methodTerm = document.getElementById("methodFilter").value;
+        const filtered = allData.filter(row => {
+          const content = row.join(" ").toLowerCase();
+          const matchesSearch = content.includes(searchTerm);
+          const matchesMethod = methodTerm === "all" || row[5] === methodTerm;
+          return matchesSearch && matchesMethod;
+        });
+        renderTable(filtered);
+      }
+
+      function renderTable(rows) {
+        const tbody = document.getElementById("tableBody");
+        tbody.innerHTML = rows.length ? "" : '<tr><td colspan="3" class="px-8 py-10 text-center text-slate-400 italic font-medium">Data tidak ditemukan.</td></tr>';
+        
+        [...rows].reverse().forEach(row => {
+          const nominal = parseInt(row[4] || 0).toLocaleString("id-ID");
+          let methodBadge = row[5] === "QRIS" ? "bg-blue-50 text-blue-600 border-blue-100" : "bg-emerald-50 text-emerald-600 border-emerald-100";
+
+          tbody.innerHTML += `
+            <tr class="group hover:bg-slate-50/80 transition-all">
+              <td class="px-4 md:px-8 py-5">
+                <div class="font-bold text-slate-900 group-hover:text-emerald-700 text-sm md:text-base">${row[1]}</div>
+                <div class="text-[10px] font-semibold text-slate-400 uppercase tracking-tighter">${row[2]} • ${row[3]}</div>
+              </td>
+              <td class="px-4 md:px-8 py-5">
+                <span class="font-extrabold text-emerald-600 text-base md:text-lg">Rp ${nominal}</span>
+              </td>
+              <td class="px-4 md:px-8 py-5 text-center">
+                <span class="px-3 md:px-4 py-1.5 rounded-full text-[9px] md:text-[10px] font-bold uppercase border ${methodBadge}">
+                  ${row[5] || 'UNKNOWN'}
+                </span>
+              </td>
+            </tr>`;
+        });
+      }
+
+      document.getElementById("searchInput").addEventListener("input", applyFilter);
+      document.getElementById("methodFilter").addEventListener("change", applyFilter);
+      loadData();
+      setInterval(() => { if (!document.hidden) loadData(); }, 15000);
+    </script>
+  </body>
+</html>

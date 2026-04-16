@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasamal Pay | Masjid Al-Hikmah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f5f9; }
+        
+        .kasamal-gradient {
+            background: linear-gradient(135deg, #059669 0%, #065f46 100%);
+        }
+        
+        .page-transition {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .numpad-btn {
+            transition: all 0.1s;
+        }
+        .numpad-btn:active { background-color: #f8fafc; transform: scale(0.9); }
+        
+        .pin-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+        .pin-dot.active {
+            background-color: #059669;
+            border-color: #059669;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center items-center bg-slate-200">
+
+    <div class="w-full max-w-md bg-white min-h-screen md:min-h-[750px] md:h-[800px] md:rounded-[3rem] shadow-2xl overflow-hidden relative flex flex-col">
+        
+        <div class="kasamal-gradient p-8 text-white shrink-0">
+            <div class="flex items-center justify-between mb-6">
+                <i class="fas fa-arrow-left text-lg opacity-80 cursor-pointer" onclick="goBack()"></i>
+                <h1 class="text-xs font-black tracking-[0.2em] uppercase">Kasamal Pay</h1>
+                <div class="w-5"></div> 
+            </div>
+            <div id="headerTitle">
+                <p class="text-emerald-100 text-[10px] uppercase font-bold tracking-widest mb-1">Infaq Digital</p>
+                <h2 class="text-2xl font-black">Masjid Al-Hikmah</h2>
+            </div>
+        </div>
+
+        <div id="screenInput" class="page-transition p-8 flex-1 flex flex-col">
+            <div class="mb-12">
+                <label class="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4 block">Masukkan Nominal Anda</label>
+                <div class="flex items-center border-b-2 border-slate-100 py-4 focus-within:border-emerald-500 transition-all">
+                    <span class="text-3xl font-black text-slate-300 mr-4">Rp</span>
+                    <input type="text" id="nominalDisplay" placeholder="0" readonly
+                        class="w-full text-5xl font-black text-slate-800 focus:outline-none bg-transparent outline-none">
+                </div>
+                <p class="text-[10px] text-slate-400 mt-4 italic">*Masukkan Nominal Uang yang akan Anda Infaq kan</p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-y-6 gap-x-8 mt-auto mb-4">
+                <button onclick="appendNum(1)" class="numpad-btn h-16 rounded-2xl font-bold text-2xl text-slate-700">1</button>
+                <button onclick="appendNum(2)" class="numpad-btn h-16 rounded-2xl font-bold text-2xl text-slate-700">2</button>
+                <button onclick="appendNum(3)" class="numpad-btn h-16 rounded-2xl font-bold text-2xl text-slate-700">3</button>
+                <button onclick="appendNum(4)" class="numpad-btn h-16 rounded-2xl font-bold text-2xl text-slate-700">4</button>
+                <button onclick="appendNum(5)" class="numpad-btn h-16 rounded-2xl font-bold text-2xl text-slate-700">5</button>
+                <button onclick="appendNum(6)" class="numpad-btn h-16 rounded-2xl font-bold text-2xl text-slate-700">6</button>
+                <button onclick="appendNum(7)" class="numpad-btn h-16 rounded-2xl font-bold text-2xl text-slate-700">7</button>
+                <button onclick="appendNum(8)" class="numpad-btn h-16 rounded-2xl font-bold text-2xl text-slate-700">8</button>
+                <button onclick="appendNum(9)" class="numpad-btn h-16 rounded-2xl font-bold text-2xl text-slate-700">9</button>
+                <button onclick="clearNum()" class="numpad-btn h-16 rounded-2xl text-slate-300 flex items-center justify-center">
+                    <i class="fas fa-backspace text-xl"></i>
+                </button>
+                <button onclick="appendNum(0)" class="numpad-btn h-16 rounded-2xl font-bold text-2xl text-slate-700">0</button>
+                <button onclick="nextStep()" class="h-16 rounded-[1.5rem] bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-100 active:scale-95 transition-all">
+                    <i class="fas fa-check text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="screenConfirm" class="hidden page-transition p-8 flex-1">
+            <h3 class="font-black text-slate-800 text-xl mb-8">Konfirmasi Infaq</h3>
+            
+            <div class="space-y-6">
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Tujuan</span>
+                    <span class="text-sm font-bold text-slate-800">MASJID AL-HIKMAH</span>
+                </div>
+                
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Program</span>
+                    <span class="text-sm font-bold text-slate-800">Infaq Rutin & Pembangunan</span>
+                </div>
+
+                <div class="bg-slate-50 rounded-3xl p-6 border border-slate-100">
+                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-2 block">Total Pembayaran</span>
+                    <span id="confirmNominal" class="text-3xl font-black text-emerald-600">Rp 0</span>
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <button onclick="showPin()" class="w-full bg-slate-900 text-white font-black py-5 rounded-[1.5rem] shadow-xl active:scale-[0.98] transition-all">
+                    KONFIRMASI SEKARANG
+                </button>
+            </div>
+        </div>
+
+        <div id="screenPin" class="hidden page-transition p-8 flex-1 flex flex-col items-center">
+            <h3 class="font-black text-slate-800 text-xl mb-2">PIN Keamanan</h3>
+            <p class="text-xs text-slate-400 mb-12">Masukkan 6 digit PIN Anda</p>
+            
+            <div class="flex space-x-4 mb-16">
+                <div class="pin-dot" id="dot-0"></div>
+                <div class="pin-dot" id="dot-1"></div>
+                <div class="pin-dot" id="dot-2"></div>
+                <div class="pin-dot" id="dot-3"></div>
+                <div class="pin-dot" id="dot-4"></div>
+                <div class="pin-dot" id="dot-5"></div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-y-4 gap-x-12 w-full max-w-[300px]">
+                <button onclick="pressPin(1)" class="numpad-btn h-12 font-bold text-2xl text-slate-700">1</button>
+                <button onclick="pressPin(2)" class="numpad-btn h-12 font-bold text-2xl text-slate-700">2</button>
+                <button onclick="pressPin(3)" class="numpad-btn h-12 font-bold text-2xl text-slate-700">3</button>
+                <button onclick="pressPin(4)" class="numpad-btn h-12 font-bold text-2xl text-slate-700">4</button>
+                <button onclick="pressPin(5)" class="numpad-btn h-12 font-bold text-2xl text-slate-700">5</button>
+                <button onclick="pressPin(6)" class="numpad-btn h-12 font-bold text-2xl text-slate-700">6</button>
+                <button onclick="pressPin(7)" class="numpad-btn h-12 font-bold text-2xl text-slate-700">7</button>
+                <button onclick="pressPin(8)" class="numpad-btn h-12 font-bold text-2xl text-slate-700">8</button>
+                <button onclick="pressPin(9)" class="numpad-btn h-12 font-bold text-2xl text-slate-700">9</button>
+                <div class="h-12"></div>
+                <button onclick="pressPin(0)" class="numpad-btn h-12 font-bold text-2xl text-slate-700">0</button>
+                <button onclick="clearPin()" class="numpad-btn h-12 text-slate-300 flex items-center justify-center">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="screenSuccess" class="hidden page-transition p-8 flex-1 flex flex-col">
+            <div id="receiptArea" class="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm text-center relative overflow-hidden">
+                <div class="relative z-10">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-1">Berhasil Terkirim</p>
+                    <h4 id="finalAmount" class="text-4xl font-black text-slate-800 mb-8">Rp 0</h4>
+                    
+                    <div class="space-y-4 text-left border-t border-dashed border-slate-200 pt-8">
+                        <div class="flex justify-between">
+                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Waktu</span>
+                            <span class="text-[10px] font-bold text-slate-800" id="timestamp">--:--</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">No. Ref</span>
+                            <span class="text-[10px] font-bold text-slate-800" id="refID">KP-000000</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Sumber</span>
+                            <span class="text-[10px] font-bold text-slate-800 uppercase italic">Kasamal Pay</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 opacity-20">
+                        <i class="fas fa-mosque text-5xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto space-y-4">
+                <button onclick="downloadReceipt()" class="w-full bg-emerald-600 text-white font-black py-5 rounded-[1.5rem] flex items-center justify-center space-x-3 shadow-lg shadow-emerald-50">
+                    <i class="fas fa-cloud-download-alt"></i>
+                    <span>SIMPAN STRUK</span>
+                </button>
+                <button onclick="location.reload()" class="w-full text-slate-400 font-bold text-[10px] tracking-widest uppercase py-2">Selesai</button>
+            </div>
+        </div>
+
+    </div>
+
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgq0Mu2IaFKG4PjGWYEVWImbWm6N5rx2ilN32ahmOD5VHXSOtWTr9bzStW4IxccdWt/exec";
+        let rawNominal = "";
+        let rawPin = "";
+        let currentStep = 1;
+
+        // INPUT NOMINAL
+        function appendNum(n) {
+            if(rawNominal.length < 12) {
+                rawNominal += n;
+                updateNominalDisplay();
+            }
+        }
+        function clearNum() {
+            rawNominal = rawNominal.slice(0, -1);
+            updateNominalDisplay();
+        }
+        function updateNominalDisplay() {
+            document.getElementById('nominalDisplay').value = rawNominal ? parseInt(rawNominal).toLocaleString('id-ID') : "0";
+        }
+
+        // NAVIGATION
+        function nextStep() {
+            if(!rawNominal || parseInt(rawNominal) < 100) {
+                alert("Minimal infaq Rp 100");
+                return;
+            }
+            document.getElementById('screenInput').classList.add('hidden');
+            document.getElementById('screenConfirm').classList.remove('hidden');
+            document.getElementById('confirmNominal').innerText = "Rp " + parseInt(rawNominal).toLocaleString('id-ID');
+            currentStep = 2;
+        }
+
+        function showPin() {
+            document.getElementById('screenConfirm').classList.add('hidden');
+            document.getElementById('screenPin').classList.remove('hidden');
+            currentStep = 3;
+        }
+
+        function goBack() {
+            if(currentStep === 2) {
+                document.getElementById('screenConfirm').classList.add('hidden');
+                document.getElementById('screenInput').classList.remove('hidden');
+                currentStep = 1;
+            } else if (currentStep === 3) {
+                document.getElementById('screenPin').classList.add('hidden');
+                document.getElementById('screenConfirm').classList.remove('hidden');
+                rawPin = "";
+                updatePinDots();
+                currentStep = 2;
+            }
+        }
+
+        // PIN LOGIC
+        function pressPin(n) {
+            if(rawPin.length < 6) {
+                rawPin += n;
+                updatePinDots();
+                if(rawPin.length === 6) processFinal();
+            }
+        }
+        function clearPin() {
+            rawPin = "";
+            updatePinDots();
+        }
+        function updatePinDots() {
+            for(let i=0; i<6; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if(i < rawPin.length) dot.classList.add('active');
+                else dot.classList.remove('active');
+            }
+        }
+
+        // FINALIZING
+        function processFinal() {
+            const pinScreen = document.getElementById('screenPin');
+            pinScreen.innerHTML = `
+                <div class="flex-1 flex flex-col items-center justify-center p-8 text-center">
+                    <div class="w-16 h-16 border-4 border-slate-100 border-t-emerald-600 rounded-full animate-spin mb-6"></div>
+                    <p class="font-black text-slate-800 uppercase tracking-widest text-xs">Mengamankan Dana...</p>
+                </div>`;
+
+            const finalURL = `${SCRIPT_URL}?nominal=${encodeURIComponent(rawNominal)}&metode=QRIS`;
+            document.querySelector('[name="hidden_iframe"]').src = finalURL;
+
+            setTimeout(() => {
+                pinScreen.classList.add('hidden');
+                document.getElementById('screenSuccess').classList.remove('hidden');
+                document.getElementById('finalAmount').innerText = "Rp " + parseInt(rawNominal).toLocaleString('id-ID');
+                document.getElementById('refID').innerText = "KP-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+                document.getElementById('timestamp').innerText = new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
+            }, 2000);
+        }
+
+        // DOWNLOAD
+        function downloadReceipt() {
+            const btn = document.querySelector('button[onclick="downloadReceipt()"]');
+            btn.innerHTML = '<i class="fas fa-spinner animate-spin"></i>';
+            
+            html2canvas(document.querySelector("#receiptArea"), {
+                backgroundColor: "#ffffff",
+                scale: 3,
+                borderRadius: 40
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `Struk_Infaq_${Date.now()}.png`;
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+                btn.innerHTML = '<i class="fas fa-check"></i> <span>STRUK DISIMPAN</span>';
+            });
+        }
+    </script>
+</body>
+</html>
